@@ -2,6 +2,9 @@ using System;
 
 namespace TodoListN;
 
+// Menu
+public enum Menu {Add = 1, Complete = 2, DisplayAll = 3, Edit = 4, Exit = 5}
+
 public class ToDoList
 {
     private List<Task> tasks;
@@ -11,6 +14,7 @@ public class ToDoList
             tasks = new List<Task>();
         }
 
+// Actions
         public void AddTask(Task task)
         {
             tasks.Add(task);
@@ -53,6 +57,19 @@ public class ToDoList
                 tasks[taskNumber].Priority = newPriority;
             }
         }
+
+        // Validation
+
+        public int ReadInt()
+    {
+        int input;
+        while(!int.TryParse(Console.ReadLine(), out input))
+        {
+            throw new ArgumentException("Value Invalid");
+        }
+
+        return input;
+    }
 
     
 }

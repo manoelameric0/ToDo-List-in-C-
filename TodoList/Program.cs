@@ -12,9 +12,11 @@ internal class Program
 {
     static void Main(string[] args)
     {
-        ToDoList toDoList = new ToDoList();
+        ToDoList toDoManager = new ToDoList();
 
-        while (true)
+        bool executando = true;
+        System.Console.WriteLine("===Welcome===");
+        while (executando)
         {
             Console.WriteLine("1. Add task");
             Console.WriteLine("2. Complete task");
@@ -22,11 +24,12 @@ internal class Program
             Console.WriteLine("4. Edit task");
             Console.WriteLine("5. Exit");
 
-            var option = Console.ReadLine();
+            var option = toDoManager.ReadInt();
 
-            switch (option)
+            Menu menu = (Menu)option;
+            switch (menu)
             {
-                case "1":
+                case Menu.Add:
                     Console.WriteLine("Enter task description:");
                     var description = Console.ReadLine();
                     Console.WriteLine("Enter task priority:");
@@ -34,7 +37,7 @@ internal class Program
                     toDoList.AddTask(new Task(description, priority));
                     Console.Clear();
                     break;
-                case "2":
+                case Menu.Complete:
                     Console.WriteLine("Here is a list of all your tasks:");
                     toDoList.DisplayTasks();
                     Console.WriteLine("Enter task number to complete:");
@@ -44,14 +47,14 @@ internal class Program
                     Console.Clear();
                     break;
 
-                case "3":
+                case Menu.DisplayAll:
                     toDoList.DisplayTasks();
                     Console.ReadLine();
                     Console.Clear();
                     break;
 
 
-                case "4":
+                case Menu.Edit:
                     Console.WriteLine("Here is a list of all your tasks:");
                     toDoList.DisplayTasks();
                     Console.WriteLine("Enter task number to edit:");
@@ -60,8 +63,9 @@ internal class Program
                     Console.Clear();
                     break;
 
-                case "5":
-                    return;
+                case Menu.Exit:
+                    executando = false;
+                    break;
 
                 default:
                     Console.WriteLine("Invalid input, please try again.");
