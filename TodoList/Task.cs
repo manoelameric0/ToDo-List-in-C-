@@ -19,12 +19,17 @@ public class Task
         {
             throw new ArgumentException("description need more charecters");
         }
-        
         Description = description;
+
         IsComplete = false;
+
+        if (priority <= 0|| priority > 3)
+        {
+            throw new ArgumentException("Priority Invalid");
+        }
         Priority = priority;
     }
-
+   
     public void CompleteTask()
     {
         IsComplete = true;

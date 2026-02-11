@@ -18,32 +18,28 @@ class Program
         System.Console.WriteLine("===Welcome===");
         while (executando)
         {
-            Console.WriteLine("1. Add task");
-            Console.WriteLine("2. Complete task");
-            Console.WriteLine("3. Display all tasks");
-            Console.WriteLine("4. Edit task");
-            Console.WriteLine("5. Exit");
+            Console.WriteLine("1- Add task");
+            Console.WriteLine("2- Complete task");
+            Console.WriteLine("3- Display all tasks");
+            Console.WriteLine("4- Edit task");
+            Console.WriteLine("5- Exit");
+            Console.Write("Choose: ");
 
-            var option = toDoManager.ReadInt();
+            var option = toDoManager.ReadMenu();
 
             Menu menu = (Menu)option;
             switch (menu)
             {
                 case Menu.Add:
-                    
+                    toDoManager.AddTask();
+
                     break;
                 case Menu.Complete:
-                    Console.WriteLine("Here is a list of all your tasks:");
-                    toDoList.DisplayTasks();
-                    Console.WriteLine("Enter task number to complete:");
-                    var taskNumber = int.Parse(Console.ReadLine());
-                    toDoList.CompleteTask(taskNumber - 1);
-                    toDoList.RemoveTask(taskNumber - 1);
-                    Console.Clear();
+
                     break;
 
                 case Menu.DisplayAll:
-                    toDoList.DisplayTasks();
+                    //toDoList.DisplayTasks();
                     Console.ReadLine();
                     Console.Clear();
                     break;
@@ -51,10 +47,10 @@ class Program
 
                 case Menu.Edit:
                     Console.WriteLine("Here is a list of all your tasks:");
-                    toDoList.DisplayTasks();
+                    //toDoList.DisplayTasks();
                     Console.WriteLine("Enter task number to edit:");
                     var editTaskNumber = int.Parse(Console.ReadLine());
-                    toDoList.EditTask(editTaskNumber - 1);
+                    //toDoList.EditTask(editTaskNumber - 1);
                     Console.Clear();
                     break;
 
@@ -63,9 +59,8 @@ class Program
                     break;
 
                 default:
-                    Console.WriteLine("Invalid input, please try again.");
-                    Console.ReadLine();
-                    Console.Clear();
+                    Console.WriteLine("Invalid Type 1 at 5\n");
+
                     break;
             }
         }
