@@ -8,7 +8,7 @@ namespace ToDoListN;
 
 
 
-internal class Program
+class Program
 {
     static void Main(string[] args)
     {
@@ -30,12 +30,7 @@ internal class Program
             switch (menu)
             {
                 case Menu.Add:
-                    Console.WriteLine("Enter task description:");
-                    var description = Console.ReadLine();
-                    Console.WriteLine("Enter task priority:");
-                    var priority = int.Parse(Console.ReadLine());
-                    toDoList.AddTask(new Task(description, priority));
-                    Console.Clear();
+                    
                     break;
                 case Menu.Complete:
                     Console.WriteLine("Here is a list of all your tasks:");
