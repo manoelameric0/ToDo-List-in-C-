@@ -18,7 +18,7 @@ class Program
         System.Console.WriteLine("===Welcome===");
         while (executando)
         {
-            Console.WriteLine("1- Add task");
+            Console.WriteLine("\n1- Add task");
             Console.WriteLine("2- Complete task");
             Console.WriteLine("3- Display all tasks");
             Console.WriteLine("4- Edit task");
@@ -35,7 +35,7 @@ class Program
 
                     break;
                 case Menu.Complete:
-
+                    toDoManager.CompleteTask();
                     break;
 
                 case Menu.DisplayAll:
