@@ -2,6 +2,8 @@ using System;
 
 namespace TodoListN;
 
+enum Priority {Low = 1, Midle = 2, High = 3}
+
 public class Task
 {
     public string Description { get; private set; }
@@ -33,5 +35,14 @@ public class Task
     public void CompleteTask()
     {
         IsComplete = true;
+    }
+
+    public void newDescription(string newDescription)
+    {
+        Description = newDescription;
+    }
+    public void newPriority(int newPriority)
+    {
+        Priority = newPriority;
     }
 }

@@ -17,22 +17,16 @@ public class ToDoList
     // Actions
     public void AddTask()
     {
-        string description = null;
-        int priority = 0;
         while (true)
         {
             try
             {
-                if (description == null)
-                {
-                    Console.Write("Enter task description: ");
-                    description = ReadString();
-                }
-                if (priority == 0)
-                {
-                    Console.Write("\nEnter task priority:\n1- Low\n2- Midle\n3- High\n\nChoose: ");
-                    priority = ReadPriority();
-                }
+                Console.Write("Enter task description: ");
+                string description = ReadString();
+
+                Console.Write("\nEnter task priority:\n\n1- Low\n2- Midle\n3- High\n\nChoose: ");
+                int priority = ReadPriority();
+
                 tasks.Add(new Task(description, priority));
                 Console.Clear();
                 break;
@@ -70,26 +64,37 @@ public class ToDoList
         }
     }
 
-    public void DisplayTasks()
+    public List<Task> DisplayTasks()
     {
-        var sortedTasks = tasks.OrderBy(t => t.Priority).ToList();
+        var sortedTasks = tasks.OrderByDescending(t => t.Priority).ToList();
         for (int i = 0; i < sortedTasks.Count; i++)
         {
-            Console.WriteLine($"{i + 1}. {sortedTasks[i].Description} - {(sortedTasks[i].IsComplete ? "Complete" : "Incomplete")} - Priority: {sortedTasks[i].Priority}");
+
+            Priority priority = (Priority)sortedTasks[i].Priority;
+            Console.WriteLine($"\n{i + 1}. {sortedTasks[i].Description} - {(sortedTasks[i].IsComplete ? "Complete" : "Incomplete")} - Priority: {priority}\n");
         }
+        Console.Clear();
+        return sortedTasks;
+
     }
 
-    public void EditTask(int taskNumber)
+    public void EditTask()
     {
-        if (taskNumber >= 0 && taskNumber < tasks.Count)
-        {
-            Console.WriteLine("Enter new task description:");
-            var newDescription = Console.ReadLine();
-            Console.WriteLine("Enter new task priority:");
-            var newPriority = int.Parse(Console.ReadLine());
-            //tasks[taskNumber].Description = newDescription;
-            //tasks[taskNumber].Priority = newPriority;
-        }
+        Console.WriteLine("Here is a list of all your tasks:");
+        var ListOrdened = DisplayTasks();
+        Console.Write("Enter task number to edit: ");
+        int taskNumber = ReadNumberTask();
+
+        Task task = ListOrdened[taskNumber - 1];
+
+        Console.Write("\nEnter new task description:");
+        var newDescription = ReadString();
+        Console.WriteLine("\nEnter task priority:\n\n1- Low\n2- Midle\n3- High\n\nChoose: ");
+        var newPriority = ReadPriority();
+        task.newDescription(newDescription);
+        task.newPriority(newPriority);
+        Console.Clear();
+
     }
 
     // Validation
@@ -127,6 +132,18 @@ public class ToDoList
         {
             System.Console.WriteLine("\nInvalid. Choose type 1 at 5\n");
             System.Console.Write("Choose: ");
+        }
+        return input;
+    }
+
+    public int ReadNumberTask()
+    {
+        int input;
+        while (!int.TryParse(Console.ReadLine(), out input) || input <= 0 || input > tasks.Count)
+        {
+            Console.WriteLine("Invalid Number Task! Try again...");
+            Console.Write("Enter task number to edit: ");
+
         }
         return input;
     }

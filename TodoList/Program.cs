@@ -39,19 +39,12 @@ class Program
                     break;
 
                 case Menu.DisplayAll:
-                    //toDoList.DisplayTasks();
-                    Console.ReadLine();
-                    Console.Clear();
+                    toDoManager.DisplayTasks();
                     break;
 
 
                 case Menu.Edit:
-                    Console.WriteLine("Here is a list of all your tasks:");
-                    //toDoList.DisplayTasks();
-                    Console.WriteLine("Enter task number to edit:");
-                    var editTaskNumber = int.Parse(Console.ReadLine());
-                    //toDoList.EditTask(editTaskNumber - 1);
-                    Console.Clear();
+                    toDoManager.EditTask();
                     break;
 
                 case Menu.Exit:
