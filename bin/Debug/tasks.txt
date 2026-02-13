@@ -1,2 +1,0 @@
-Buy milk,True,2
-Walk the dog,False,1

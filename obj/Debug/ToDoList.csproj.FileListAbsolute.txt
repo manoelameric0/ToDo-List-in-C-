@@ -1,7 +1,0 @@
-D:\_progects\VisualStudio\ToDoList\bin\Debug\ToDoList.exe.config
-D:\_progects\VisualStudio\ToDoList\bin\Debug\ToDoList.exe
-D:\_progects\VisualStudio\ToDoList\bin\Debug\ToDoList.pdb
-D:\_progects\VisualStudio\ToDoList\obj\Debug\ToDoList.csproj.AssemblyReference.cache
-D:\_progects\VisualStudio\ToDoList\obj\Debug\ToDoList.csproj.CoreCompileInputs.cache
-D:\_progects\VisualStudio\ToDoList\obj\Debug\ToDoList.exe
-D:\_progects\VisualStudio\ToDoList\obj\Debug\ToDoList.pdb

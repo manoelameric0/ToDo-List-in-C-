@@ -1,9 +1,8 @@
 using System;
 
-namespace TodoListN;
+namespace TodoList.Services;
 
-// Menu
-public enum Menu { Add = 1, Complete = 2, DisplayAll = 3, Edit = 4, Exit = 5 }
+
 
 public class ToDoList
 {
