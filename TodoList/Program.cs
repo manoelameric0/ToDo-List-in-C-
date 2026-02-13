@@ -135,6 +135,7 @@ class Program
         var newDescription = ReadString();
         Console.WriteLine("\nEnter task priority:\n\n1- Low\n2- Midle\n3- High\n\nChoose: ");
         var newPriority = ReadPriority();
+
         taskService.Edit(index:taskNumber, newDescription:newDescription, newPriority:newPriority);
         Console.Clear();
     }
@@ -184,14 +185,22 @@ class Program
 
     static void AddTask(ITaskService taskService)
     {
-        Console.Write("Enter task description: ");
-        string description = ReadString();
-
-        Console.Write("\nEnter task priority:\n\n1- Low\n2- Midle\n3- High\n\nChoose: ");
-        int priority = ReadPriority();
-
-
-        taskService.Add(description, priority);
+        try
+        {
+            Console.Write("Enter task description: ");
+            string description = ReadString();
+    
+            Console.Write("\nEnter task priority:\n\n1- Low\n2- Midle\n3- High\n\nChoose: ");
+            int priority = ReadPriority();
+    
+    
+            taskService.Add(description, priority);
+        }
+        catch (ArgumentException ex)
+        {
+            System.Console.WriteLine($"\nError: {ex.Message}");
+            System.Console.WriteLine($"Try Again.\n");
+        }
 
     }
 }
