@@ -2,33 +2,22 @@ using System;
 
 namespace TodoList.Models;
 
-enum Priority {Low = 1, Midle = 2, High = 3}
-
-public class Task
+public class TaskItem
 {
     public string Description { get; private set; }
     public bool IsComplete { get; private set; }
     public int Priority { get; private set; }
 
-    public Task(string description, int priority)
+    public TaskItem(string description, int priority)
     {
-        if (string.IsNullOrWhiteSpace(description))
-        {
-            throw new ArgumentException("Invalid description");
-        }
+        if (string.IsNullOrWhiteSpace(description) || description.Length < 6)
+            throw new ArgumentException("Description must have at least 6 characters.");
 
-        if (description.Length < 3)
-        {
-            throw new ArgumentException("description need more charecters");
-        }
+        if (priority < 1 || priority > 3)
+            throw new ArgumentException("Priority must be between 1 and 3.");
+
         Description = description;
-
         IsComplete = false;
-
-        if (priority <= 0|| priority > 3)
-        {
-            throw new ArgumentException("Priority Invalid");
-        }
         Priority = priority;
     }
    
@@ -37,12 +26,9 @@ public class Task
         IsComplete = true;
     }
 
-    public void newDescription(string newDescription)
+    public void Update(string newDescription, int newPriority)
     {
         Description = newDescription;
-    }
-    public void newPriority(int newPriority)
-    {
         Priority = newPriority;
     }
 }
