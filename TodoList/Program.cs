@@ -136,7 +136,7 @@ class Program
         Console.WriteLine("\nEnter task priority:\n\n1- Low\n2- Midle\n3- High\n\nChoose: ");
         var newPriority = ReadPriority();
 
-        taskService.Edit(index:taskNumber, newDescription:newDescription, newPriority:newPriority);
+        taskService.Edit(index: taskNumber, newDescription: newDescription, newPriority: newPriority);
         Console.Clear();
     }
 
@@ -156,7 +156,9 @@ class Program
         //RemoveTask(task);
 
         Console.Clear();
+        Console.BackgroundColor = ConsoleColor.DarkGreen;
         System.Console.WriteLine("\nCongratulations Task Completed!!!\n");
+        Console.BackgroundColor = ConsoleColor.Black;
     }
 
 
@@ -171,12 +173,35 @@ class Program
             Console.WriteLine("\nNo tasks found.\n");
         }
 
-        System.Console.WriteLine("===Open Tasks===\n");
+        System.Console.WriteLine("=== Tasks ===\n");
+
+        Console.BackgroundColor = ConsoleColor.DarkRed;
+        System.Console.WriteLine("=== Incompleted tasks ===");
+        Console.BackgroundColor = ConsoleColor.Black;
+
         for (int i = 0; i < sortedTasks.Count; i++)
         {
 
-            Priority priority = (Priority)sortedTasks[i].Priority;
-            Console.WriteLine($"{i + 1}. {sortedTasks[i].Description} - {(sortedTasks[i].IsComplete ? "Complete" : "Incomplete")} - Priority: {priority}");
+            if (!sortedTasks[i].IsComplete)
+            {
+                Priority priority = (Priority)sortedTasks[i].Priority;
+                Console.WriteLine($"\n{i + 1}. {sortedTasks[i].Description} - Incomplete - Priority: {priority}");
+            }
+
+            
+        }
+
+        Console.BackgroundColor = ConsoleColor.DarkGreen;
+        System.Console.WriteLine("\n=== Completed tasks ===");
+        Console.BackgroundColor = ConsoleColor.Black;
+
+        for (int i = 0; i < sortedTasks.Count; i++)
+        {
+            if (sortedTasks[i].IsComplete)
+            {
+                Priority priority = (Priority)sortedTasks[i].Priority;
+                Console.WriteLine($"\n{i + 1}. {sortedTasks[i].Description} - Complete - Priority: {priority}");
+            }
         }
 
     }
@@ -189,11 +214,11 @@ class Program
         {
             Console.Write("Enter task description: ");
             string description = ReadString();
-    
+
             Console.Write("\nEnter task priority:\n\n1- Low\n2- Midle\n3- High\n\nChoose: ");
             int priority = ReadPriority();
-    
-    
+
+
             taskService.Add(description, priority);
         }
         catch (ArgumentException ex)
