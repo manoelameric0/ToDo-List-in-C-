@@ -25,7 +25,8 @@ class Program
             Console.WriteLine("2- Complete task");
             Console.WriteLine("3- Display all tasks");
             Console.WriteLine("4- Edit task");
-            Console.WriteLine("5- Exit");
+            Console.WriteLine("5- Remove task");
+            Console.WriteLine("6- Exit");
             Console.Write("Choose: ");
 
             var option = ReadMenu();
@@ -53,6 +54,11 @@ class Program
                     EditTask(taskService);
                     break;
 
+                case Menu.Remove:
+                    RemoveTask(taskService);
+                    break;
+                    
+
                 case Menu.Exit:
                     executando = false;
                     break;
@@ -68,6 +74,16 @@ class Program
 
     // Validation
 
+    static DateTime ReadDateTime()
+    {
+        DateTime dueDate;
+        while (!DateTime.TryParse(Console.ReadLine(), out dueDate))
+        {
+            System.Console.WriteLine("Invalid Date!");
+        }
+
+        return dueDate;
+    }
     static string ReadString()
     {
 
@@ -123,6 +139,17 @@ class Program
 
     // action
 
+    //remove
+    static void RemoveTask(ITaskService taskService)
+    {
+        Console.WriteLine("Here is a list of all your tasks:\n");
+        DisplayAll(taskService);
+        Console.Write("\nEnter task number to complete:");
+        var taskNumber = ReadNumberTask(taskService);
+        taskService.Remove(taskNumber);
+
+    }
+    
     //edit
     static void EditTask(ITaskService taskService)
     {
@@ -133,10 +160,14 @@ class Program
 
         Console.Write("\nEnter new task description:");
         var newDescription = ReadString();
+
         Console.WriteLine("\nEnter task priority:\n\n1- Low\n2- Midle\n3- High\n\nChoose: ");
         var newPriority = ReadPriority();
 
-        taskService.Edit(index: taskNumber, newDescription: newDescription, newPriority: newPriority);
+        System.Console.Write("Enter the new Due Date:");
+        var newDueDate = ReadDateTime();
+
+        taskService.Edit(index: taskNumber, newDescription: newDescription, newPriority: newPriority, newDueDate: newDueDate);
         Console.Clear();
     }
 
@@ -175,34 +206,27 @@ class Program
 
         System.Console.WriteLine("=== Tasks ===\n");
 
-        Console.BackgroundColor = ConsoleColor.DarkRed;
-        System.Console.WriteLine("=== Incompleted tasks ===");
-        Console.BackgroundColor = ConsoleColor.Black;
-
         for (int i = 0; i < sortedTasks.Count; i++)
         {
 
             if (!sortedTasks[i].IsComplete)
             {
                 Priority priority = (Priority)sortedTasks[i].Priority;
-                Console.WriteLine($"\n{i + 1}. {sortedTasks[i].Description} - Incomplete - Priority: {priority}");
+                Console.WriteLine($"{i + 1}. {sortedTasks[i].Description} - Incomplete - Priority: {priority} - Due Date: {sortedTasks[i].DueDate:dd/MM/yyyy}");
             }
-
-            
         }
 
-        Console.BackgroundColor = ConsoleColor.DarkGreen;
-        System.Console.WriteLine("\n=== Completed tasks ===");
-        Console.BackgroundColor = ConsoleColor.Black;
+        System.Console.WriteLine();
 
         for (int i = 0; i < sortedTasks.Count; i++)
         {
             if (sortedTasks[i].IsComplete)
             {
                 Priority priority = (Priority)sortedTasks[i].Priority;
-                Console.WriteLine($"\n{i + 1}. {sortedTasks[i].Description} - Complete - Priority: {priority}");
+                Console.WriteLine($"{i + 1}. {sortedTasks[i].Description} - Complete - Priority: {priority} - Due Date: {sortedTasks[i].DueDate:dd/MM/yyyy}");
             }
         }
+
 
     }
 
@@ -218,8 +242,11 @@ class Program
             Console.Write("\nEnter task priority:\n\n1- Low\n2- Midle\n3- High\n\nChoose: ");
             int priority = ReadPriority();
 
+            System.Console.Write("Enter the due date: ");
+            DateTime dueDate = ReadDateTime();
 
-            taskService.Add(description, priority);
+
+            taskService.Add(description, priority, dueDate);
         }
         catch (ArgumentException ex)
         {

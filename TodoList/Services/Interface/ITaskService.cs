@@ -6,9 +6,9 @@ namespace TodoList.Services.Interface;
 
 public interface ITaskService
 {
-    void Add (string description, int priority);
+    void Add (string description, int priority, DateTime dueDate);
     void Complete(int index);
     void Remove(int index);
-    void Edit(int index, string newDescription, int newPriority);
+    void Edit(int index, string newDescription, int newPriority, DateTime newDueDate);
     List<TaskItem> GetAll();
 }
